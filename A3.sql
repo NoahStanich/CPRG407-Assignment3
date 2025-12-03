@@ -27,6 +27,8 @@ BEGIN
         VALUES (account_no, transaction_no, transaction_type, transaction_amount);
         INSERT INTO transaction_history(transaction_no, transaction_date, description)
         VALUES(v_transaction_no, v_transaction_date, v_description);
+        
     END LOOP;
     CLOSE new_transactions_cursor;
-    
+END;
+/
