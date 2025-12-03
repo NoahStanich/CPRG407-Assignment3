@@ -2,6 +2,7 @@ set serveroutput on;
 set echo off;
 set feedback on;
 
+
 start "C:\cprg307\Assignment 3 Part 1 Scripts\create_wkis.sql";
 start "C:\cprg307\Assignment 3 Part 1 Scripts\constraints_wkis.sql";
 start "C:\cprg307\Assignment 3 Part 1 Scripts\load_wkis.sql";
