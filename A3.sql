@@ -24,13 +24,11 @@ DECLARE
     v_new_account_amount account.account_balance%TYPE;
 BEGIN
     OPEN new_transactions_cursor;
-    DBMS_OUTPUT.PUT_LINE('test');
     -- Percaution to not skip over details
     v_old_transaction_no := -1;
     LOOP
         FETCH new_transactions_cursor into v_account_no, v_transaction_no, v_transaction_type, v_transaction_amount, v_transaction_date, v_description;
         EXIT WHEN new_transactions_cursor%NOTFOUND;
-        DBMS_OUTPUT.PUT_LINE('test2');
         DBMS_OUTPUT.PUT_LINE(v_transaction_no);
         IF (v_old_transaction_no != v_transaction_no) THEN
             INSERT INTO transaction_history(transaction_no, transaction_date, description)
@@ -44,9 +42,9 @@ BEGIN
         WHERE account_no = v_account_no;
         -- Decides whether to add or subtract values from account
         IF (v_transaction_type = 'D') THEN
-        v_new_account_amount := v_account_balance + v_transaction_amount;
+            v_new_account_amount := v_account_balance + v_transaction_amount;
         ELSE
-        v_new_account_amount := v_account_balance - v_transaction_amount;
+            v_new_account_amount := v_account_balance - v_transaction_amount;
         END IF;
         -- Updates the accounts
         UPDATE ACCOUNT
@@ -55,7 +53,6 @@ BEGIN
         v_old_transaction_no := v_transaction_no;
         -- Deletes the item after being processed
         DELETE FROM NEW_TRANSACTIONS WHERE CURRENT OF new_transactions_cursor;
-        
     END LOOP;
     CLOSE new_transactions_cursor;
 END;
