@@ -29,7 +29,7 @@ BEGIN
     v_old_transaction_no := -1;
     LOOP
         IF (v_transaction_no = NULL) THEN
-            RAISE_APPLICATION_ERROR(-20001, 'Invalid Transaction Number');
+            RAISE_APPLICATION_ERROR(-20002, 'Invalid Transaction Number');
         END IF;
         FETCH new_transactions_cursor into v_account_no, v_transaction_no, v_transaction_type, v_transaction_amount, v_transaction_date, v_description;
         EXIT WHEN new_transactions_cursor%NOTFOUND;
