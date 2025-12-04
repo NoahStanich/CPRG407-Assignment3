@@ -30,7 +30,6 @@ BEGIN
     LOOP
         FETCH new_transactions_cursor into v_account_no, v_transaction_no, v_transaction_type, v_transaction_amount, v_transaction_date, v_description;
         EXIT WHEN new_transactions_cursor%NOTFOUND;
-        DBMS_OUTPUT.PUT_LINE(v_transaction_no);
         IF (v_old_transaction_no != v_transaction_no) THEN
             INSERT INTO transaction_history(transaction_no, transaction_date, description)
             VALUES(v_transaction_no, v_transaction_date, v_description);
@@ -56,5 +55,6 @@ BEGIN
         DELETE FROM NEW_TRANSACTIONS WHERE CURRENT OF new_transactions_cursor;
     END LOOP;
     CLOSE new_transactions_cursor;
+    COMMIT;
 END;
 /
